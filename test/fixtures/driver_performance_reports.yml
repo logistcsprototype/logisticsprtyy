@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  driver: one
+  admin: one
+  report_date: 2025-09-17
+  rating: 1
+  comments: MyText
+  vehicle: one
+
+two:
+  driver: two
+  admin: two
+  report_date: 2025-09-17
+  rating: 1
+  comments: MyText
+  vehicle: two

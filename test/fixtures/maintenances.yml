@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  vehicle_id: one
+  admin: one
+  maintenance_date: 2025-09-17
+  description: MyText
+  cost: 9.99
+  next_due_date: 2025-09-17
+
+two:
+  vehicle_id: two
+  admin: two
+  maintenance_date: 2025-09-17
+  description: MyText
+  cost: 9.99
+  next_due_date: 2025-09-17

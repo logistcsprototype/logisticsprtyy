@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  vehicle: one
+  admin: one
+  document_type: MyString
+  expiry_date: 2025-09-17
+  document_url: MyString
+  notes: MyText
+
+two:
+  vehicle: two
+  admin: two
+  document_type: MyString
+  expiry_date: 2025-09-17
+  document_url: MyString
+  notes: MyText
