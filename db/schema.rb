@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_17_181127) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_18_071548) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -28,6 +28,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_17_181127) do
     t.string "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "vehicle_condition"
     t.index ["admin_id"], name: "index_driver_assignments_on_admin_id"
     t.index ["driver_id"], name: "index_driver_assignments_on_driver_id"
     t.index ["vehicle_id"], name: "index_driver_assignments_on_vehicle_id"
