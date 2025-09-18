@@ -10,5 +10,9 @@ class Vehicle < ApplicationRecord
   validates :plate_number, presence: true, uniqueness: true
   validates :vehicle_type, presence: true
   validates :capacity, numericality: { greater_than_or_equal_to: 1 }
+  
+  # Owner info: 'self' or 'third_party'
+  validates :owner_type, presence: true, inclusion: { in: %w[self third_party] }
+  validates :owner_name, presence: true
 
 end

@@ -11,4 +11,13 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  resources :drivers
+  resources :vehicles
+  resources :license_types
+  resources :admins
+  resources :driver_assignments
+  resources :driver_performances_reports
+  resources :maintenances
+  resources :insurance_documents
 end

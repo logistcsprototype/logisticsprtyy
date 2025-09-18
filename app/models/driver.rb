@@ -11,6 +11,7 @@ class Driver < ApplicationRecord
   validates :license_number, uniqueness: true
   validates :age, numericality: { greater_than_or_equal_to: 18 }, allow_nil: true
   validates :gender, inclusion: { in: %w[Male Female]}, allow_nil: true
-
+  validates :address, presence: true
+  validates :years_experience, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
 end
