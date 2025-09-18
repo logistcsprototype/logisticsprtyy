@@ -13,5 +13,7 @@ class Driver < ApplicationRecord
   validates :gender, inclusion: { in: %w[Male Female]}, allow_nil: true
   validates :address, presence: true
   validates :years_experience, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
+  validates :contact_number, presence: true
+  validates :emergency_contact, presence: true
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_18_074911) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_18_130000) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -46,6 +46,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_18_074911) do
     t.index ["admin_id"], name: "index_driver_performance_reports_on_admin_id"
     t.index ["driver_id"], name: "index_driver_performance_reports_on_driver_id"
     t.index ["vehicle_id"], name: "index_driver_performance_reports_on_vehicle_id"
+  end
+
+  create_table "driver_work_logs", force: :cascade do |t|
+    t.integer "driver_id", null: false
+    t.integer "vehicle_id", null: false
+    t.integer "admin_id", null: false
+    t.date "date", null: false
+    t.time "start_time", null: false
+    t.time "end_time", null: false
+    t.decimal "total_hours", precision: 5, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_driver_work_logs_on_admin_id"
+    t.index ["driver_id"], name: "index_driver_work_logs_on_driver_id"
+    t.index ["vehicle_id"], name: "index_driver_work_logs_on_vehicle_id"
   end
 
   create_table "drivers", force: :cascade do |t|
@@ -84,7 +99,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_18_074911) do
   end
 
   create_table "maintenances", force: :cascade do |t|
-    t.integer "vehicle_id_id", null: false
+    t.integer "vehicle_id", null: false
     t.integer "admin_id", null: false
     t.date "maintenance_date"
     t.text "description"
@@ -93,7 +108,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_18_074911) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["admin_id"], name: "index_maintenances_on_admin_id"
-    t.index ["vehicle_id_id"], name: "index_maintenances_on_vehicle_id_id"
+    t.index ["vehicle_id"], name: "index_maintenances_on_vehicle_id"
   end
 
   create_table "vehicles", force: :cascade do |t|
@@ -116,12 +131,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_18_074911) do
   add_foreign_key "driver_performance_reports", "admins"
   add_foreign_key "driver_performance_reports", "drivers"
   add_foreign_key "driver_performance_reports", "vehicles"
+  add_foreign_key "driver_work_logs", "admins"
+  add_foreign_key "driver_work_logs", "drivers"
+  add_foreign_key "driver_work_logs", "vehicles"
   add_foreign_key "drivers", "admins"
   add_foreign_key "drivers", "license_types"
   add_foreign_key "insurance_documents", "admins"
   add_foreign_key "insurance_documents", "vehicles"
   add_foreign_key "maintenances", "admins"
-  add_foreign_key "maintenances", "vehicle_ids"
+  add_foreign_key "maintenances", "vehicles"
   add_foreign_key "vehicles", "admins"
   add_foreign_key "vehicles", "license_types"
 end

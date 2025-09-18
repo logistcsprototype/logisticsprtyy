@@ -1,0 +1,39 @@
+=> 
+[[32m#<ActiveRecord::Reflection::BelongsToReflection:0x00007fe4c248f478[0m
+  @active_record[32m=[0m
+   [34m[1m[4mMaintenance[0m([35mid:[0m integer, [35mvehicle_id_id:[0m integer, [35madmin_id:[0m integer, [35mmaintenance_date:[0m date, [35mdescription:[0m text, [35mcost:[0m decimal, [35mnext_due_date:[0m date, [35mcreated_at:[0m datetime, [35mupdated_at:[0m datetime),
+  @association_foreign_key[32m=[0m[36m[1mnil[0m,
+  @association_primary_key[32m=[0m[36m[1mnil[0m,
+  @class_name[32m=[0m[31m[1m"[0m[31mVehicle[0m[31m[1m"[0m,
+  @counter_cache_column[32m=[0m[36m[1mnil[0m,
+  @foreign_key[32m=[0m[31m[1m"[0m[31mvehicle_id[0m[31m[1m"[0m,
+  @inverse_name[32m=[0m[36m[1mnil[0m,
+  @inverse_of[32m=[0m[36m[1mnil[0m,
+  @inverse_which_updates_counter_cache[32m=[0m[36m[1mnil[0m,
+  @inverse_which_updates_counter_cache_defined[32m=[0m[36m[1mfalse[0m,
+  @join_table[32m=[0m[36m[1mnil[0m,
+  @klass[32m=[0m
+   [34m[1m[4mVehicle[0m([35mid:[0m integer, [35mplate_number:[0m string, [35mvehicle_type:[0m string, [35mcapacity:[0m integer, [35mowner_type:[0m string, [35mowner_name:[0m string, [35mlicense_type_id:[0m integer, [35madmin_id:[0m integer, [35mcreated_at:[0m datetime, [35mupdated_at:[0m datetime),
+  @name[32m=[0m[33m:[0m[33mvehicle[0m,
+  @options[32m=[0m{},
+  @plural_name[32m=[0m[31m[1m"[0m[31mvehicles[0m[31m[1m"[0m,
+  @scope[32m=[0m[36m[1mnil[0m[32m>[0m,
+ [32m#<ActiveRecord::Reflection::BelongsToReflection:0x00007fe4c248dfd8[0m
+  @active_record[32m=[0m
+   [34m[1m[4mMaintenance[0m([35mid:[0m integer, [35mvehicle_id_id:[0m integer, [35madmin_id:[0m integer, [35mmaintenance_date:[0m date, [35mdescription:[0m text, [35mcost:[0m decimal, [35mnext_due_date:[0m date, [35mcreated_at:[0m datetime, [35mupdated_at:[0m datetime),
+  @association_foreign_key[32m=[0m[36m[1mnil[0m,
+  @association_primary_key[32m=[0m[36m[1mnil[0m,
+  @class_name[32m=[0m[31m[1m"[0m[31mAdmin[0m[31m[1m"[0m,
+  @counter_cache_column[32m=[0m[36m[1mnil[0m,
+  @foreign_key[32m=[0m[31m[1m"[0m[31madmin_id[0m[31m[1m"[0m,
+  @inverse_name[32m=[0m[36m[1mnil[0m,
+  @inverse_of[32m=[0m[36m[1mnil[0m,
+  @inverse_which_updates_counter_cache[32m=[0m[36m[1mnil[0m,
+  @inverse_which_updates_counter_cache_defined[32m=[0m[36m[1mfalse[0m,
+  @join_table[32m=[0m[36m[1mnil[0m,
+  @klass[32m=[0m
+   [34m[1m[4mAdmin[0m([35mid:[0m integer, [35mname:[0m string, [35memail:[0m string, [35mpassword_digest:[0m string, [35mrole:[0m string, [35mcreated_at:[0m datetime, [35mupdated_at:[0m datetime),
+  @name[32m=[0m[33m:[0m[33madmin[0m,
+  @options[32m=[0m{},
+  @plural_name[32m=[0m[31m[1m"[0m[31madmins[0m[31m[1m"[0m,
+  @scope[32m=[0m[36m[1mnil[0m[32m>[0m]

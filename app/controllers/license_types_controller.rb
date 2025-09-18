@@ -1,40 +1,41 @@
 class LicenseTypesController < ApplicationController
-  before_action :set_license_type, only: [:show, :edit, :update, :destroy]
+  before_action :set_license_type, only: %i[show update destroy]
 
+  # GET /license_types
   def index
-    @license_types = LicenseType.all
+    license_types = LicenseType.includes(:drivers, :vehicles)
+    license_types = license_types.limit(params[:limit] || 20).offset(params[:offset] || 0)
+    render json: license_types, status: :ok
   end
 
+  # GET /license_types/:id
   def show
+    render json: @license_type, status: :ok
   end
 
-  def new
-    @license_type = LicenseType.new
-  end
-
+  # POST /license_types
   def create
-    @license_type = LicenseType.new(license_type_params)
-    if @license_type.save
-      redirect_to @license_type, notice: 'License type was successfully created.'
+    license_type = LicenseType.new(license_type_params)
+    if license_type.save
+      render json: license_type, status: :created
     else
-      render :new
+      render json: { errors: license_type.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  def edit
-  end
-
+  # PATCH/PUT /license_types/:id
   def update
     if @license_type.update(license_type_params)
-      redirect_to @license_type, notice: 'License type was successfully updated.'
+      render json: @license_type, status: :ok
     else
-      render :edit
+      render json: { errors: @license_type.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
+  # DELETE /license_types/:id
   def destroy
     @license_type.destroy
-    redirect_to license_types_url, notice: 'License type was successfully destroyed.'
+    head :no_content
   end
 
   private
