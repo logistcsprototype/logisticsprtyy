@@ -1,67 +1,71 @@
 class VehiclesController < ApplicationController
-  before_action :set_vehicle, only: [:show, :edit, :update, :destroy]
+  before_action :set_vehicle, only: %i[show update destroy]
 
   # GET /vehicles
   def index
-    @vehicles = Vehicle.all
+    vehicles = Vehicle.includes(:license_type, :admin, :driver_assignments, :maintenance_records, :insurance_documents)
+
+    # Filtering
+    vehicles = vehicles.where(license_type_id: params[:license_type_id]) if params[:license_type_id].present?
+    vehicles = vehicles.where(admin_id: params[:admin_id]) if params[:admin_id].present?
+    vehicles = vehicles.where(vehicle_type: params[:vehicle_type]) if params[:vehicle_type].present?
+    vehicles = vehicles.where(owner_type: params[:owner_type]) if params[:owner_type].present?
+
+    vehicles = vehicles.limit(params[:limit] || 20).offset(params[:offset] || 0)
+    render json: vehicles, status: :ok
   end
 
-  # GET /vehicles/1
+  # GET /vehicles/:id
   def show
-  end
-
-  # GET /vehicles/new
-  def new
-    @vehicle = Vehicle.new
+    render json: @vehicle, status: :ok
   end
 
   # POST /vehicles
   def create
-    @vehicle = Vehicle.new(vehicle_params)
-
-    if @vehicle.save
-      redirect_to @vehicle, notice: 'Vehicle was successfully created.'
+    vehicle = Vehicle.new(vehicle_params)
+    if vehicle.save
+      render json: vehicle, status: :created
     else
-      render :new
+      render json: { errors: vehicle.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /vehicles/1
+  # PATCH/PUT /vehicles/:id
   def update
     if @vehicle.update(vehicle_params)
-      redirect_to @vehicle, notice: 'Vehicle was successfully updated.'
+      render json: @vehicle, status: :ok
     else
-      render :edit
+      render json: { errors: @vehicle.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  # DELETE /vehicles/1
+  # DELETE /vehicles/:id
   def destroy
     @vehicle.destroy
-    redirect_to vehicles_url, notice: 'Vehicle was successfully destroyed.'
+    head :no_content
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_vehicle
-      @vehicle = Vehicle.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def vehicle_params
-      params.require(:vehicle).permit(
-        :plate_number, 
-        :vehicle_type, 
-        :capacity, 
-        :license_type_id, 
-        :admin_id,
-        # Add any other attributes your Vehicle model might have
-        :make,
-        :model,
-        :year,
-        :color,
-        :vin,
-        :status
-      )
-    end
+  def set_vehicle
+    @vehicle = Vehicle.find(params[:id])
+  end
+
+  def vehicle_params
+    params.require(:vehicle).permit(
+      :plate_number,
+      :vehicle_type,
+      :capacity,
+      :passenger_capacity,
+      :weight_capacity,
+      :license_type_id,
+      :admin_id,
+      :make,
+      :model,
+      :year,
+      :color,
+      :vin,
+      :status
+    )
+  end
 end

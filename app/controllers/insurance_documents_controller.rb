@@ -1,40 +1,41 @@
 class InsuranceDocumentsController < ApplicationController
-  before_action :set_insurance_document, only: [:show, :edit, :update, :destroy]
+  before_action :set_insurance_document, only: %i[show update destroy]
 
+  # GET /insurance_documents
   def index
-    @insurance_documents = InsuranceDocument.all
+    documents = InsuranceDocument.includes(:vehicle, :admin)
+    documents = documents.limit(params[:limit] || 20).offset(params[:offset] || 0)
+    render json: documents, status: :ok
   end
 
+  # GET /insurance_documents/:id
   def show
+    render json: @insurance_document, status: :ok
   end
 
-  def new
-    @insurance_document = InsuranceDocument.new
-  end
-
+  # POST /insurance_documents
   def create
-    @insurance_document = InsuranceDocument.new(insurance_document_params)
-    if @insurance_document.save
-      redirect_to @insurance_document, notice: 'Insurance document was successfully created.'
+    document = InsuranceDocument.new(insurance_document_params)
+    if document.save
+      render json: document, status: :created
     else
-      render :new
+      render json: { errors: document.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  def edit
-  end
-
+  # PATCH/PUT /insurance_documents/:id
   def update
     if @insurance_document.update(insurance_document_params)
-      redirect_to @insurance_document, notice: 'Insurance document was successfully updated.'
+      render json: @insurance_document, status: :ok
     else
-      render :edit
+      render json: { errors: @insurance_document.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
+  # DELETE /insurance_documents/:id
   def destroy
     @insurance_document.destroy
-    redirect_to insurance_documents_url, notice: 'Insurance document was successfully destroyed.'
+    head :no_content
   end
 
   private
@@ -45,7 +46,10 @@ class InsuranceDocumentsController < ApplicationController
 
   def insurance_document_params
     params.require(:insurance_document).permit(
-      :vehicle_id, :admin_id, :document_type, :expiry_date
+      :vehicle_id,
+      :admin_id,
+      :document_type,
+      :expiry_date
     )
   end
 end

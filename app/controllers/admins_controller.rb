@@ -1,40 +1,41 @@
 class AdminsController < ApplicationController
-  before_action :set_admin, only: [:show, :edit, :update, :destroy]
+  before_action :set_admin, only: %i[show update destroy]
 
+  # GET /admins
   def index
-    @admins = Admin.all
+    admins = Admin.includes(:vehicles, :drivers, :driver_assignments, :maintenance_records, :driver_performances_reports, :insurance_documents)
+    admins = admins.limit(params[:limit] || 20).offset(params[:offset] || 0)
+    render json: admins, status: :ok
   end
 
+  # GET /admins/:id
   def show
+    render json: @admin, status: :ok
   end
 
-  def new
-    @admin = Admin.new
-  end
-
+  # POST /admins
   def create
-    @admin = Admin.new(admin_params)
-    if @admin.save
-      redirect_to @admin, notice: 'Admin was successfully created.'
+    admin = Admin.new(admin_params)
+    if admin.save
+      render json: admin, status: :created
     else
-      render :new
+      render json: { errors: admin.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  def edit
-  end
-
+  # PATCH/PUT /admins/:id
   def update
     if @admin.update(admin_params)
-      redirect_to @admin, notice: 'Admin was successfully updated.'
+      render json: @admin, status: :ok
     else
-      render :edit
+      render json: { errors: @admin.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
+  # DELETE /admins/:id
   def destroy
     @admin.destroy
-    redirect_to admins_url, notice: 'Admin was successfully destroyed.'
+    head :no_content
   end
 
   private

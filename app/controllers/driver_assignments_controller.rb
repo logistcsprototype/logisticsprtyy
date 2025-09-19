@@ -1,40 +1,42 @@
 class DriverAssignmentsController < ApplicationController
-  before_action :set_driver_assignment, only: [:show, :edit, :update, :destroy]
+  before_action :set_driver_assignment, only: %i[show update destroy]
 
+  # GET /driver_assignments
   def index
-    @driver_assignments = DriverAssignment.all
+    assignments = DriverAssignment.includes(:driver, :vehicle, :admin)
+    assignments = assignments.limit(params[:limit] || 20).offset(params[:offset] || 0)
+    render json: assignments, status: :ok
   end
 
+  # GET /driver_assignments/:id
   def show
+    render json: @driver_assignment, status: :ok
   end
 
-  def new
-    @driver_assignment = DriverAssignment.new
-  end
-
+  # POST /driver_assignments
   def create
-    @driver_assignment = DriverAssignment.new(driver_assignment_params)
-    if @driver_assignment.save
-      redirect_to @driver_assignment, notice: 'Driver assignment was successfully created.'
+    assignment = DriverAssignment.new(driver_assignment_params)
+
+    if assignment.save
+      render json: assignment, status: :created
     else
-      render :new
+      render json: { errors: assignment.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  def edit
-  end
-
+  # PATCH/PUT /driver_assignments/:id
   def update
     if @driver_assignment.update(driver_assignment_params)
-      redirect_to @driver_assignment, notice: 'Driver assignment was successfully updated.'
+      render json: @driver_assignment, status: :ok
     else
-      render :edit
+      render json: { errors: @driver_assignment.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
+  # DELETE /driver_assignments/:id
   def destroy
     @driver_assignment.destroy
-    redirect_to driver_assignments_url, notice: 'Driver assignment was successfully destroyed.'
+    head :no_content
   end
 
   private
@@ -45,7 +47,13 @@ class DriverAssignmentsController < ApplicationController
 
   def driver_assignment_params
     params.require(:driver_assignment).permit(
-      :driver_id, :vehicle_id, :admin_id, :date_assigned, :vehicle_condition
+      :driver_id,
+      :vehicle_id,
+      :admin_id,
+      :date_assigned,
+      :vehicle_condition,
+      :end_date,
+      :assignment_status
     )
   end
 end
