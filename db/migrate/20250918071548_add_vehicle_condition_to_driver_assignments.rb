@@ -1,5 +1,5 @@
- driverclass AddVehicleConditionToDriverAssignments < ActiveRecord::Migration[8.0]
+ class AddVehicleConditionToDriverAssignments < ActiveRecord::Migration[8.0]
   def change
     add_column :driver_assignments, :vehicle_condition, :string
   end
-
+end
