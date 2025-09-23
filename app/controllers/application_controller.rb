@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   include ActionController::HttpAuthentication::Token::ControllerMethods
 
-  before_action :authenticate_request
+  before_action :authenticate_admin!
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
@@ -9,17 +9,18 @@ class ApplicationController < ActionController::API
 
   private
 
-  def authenticate_request
-    # Basic token authentication - replace with JWT or proper auth system
-    authenticate_or_request_with_http_token do |token, options|
-      # For now, accept any token - implement proper authentication
-      token.present?
-    end
+  def authenticate_admin!
+    # Devise JWT authentication
+    authenticate_admin!
   end
 
-  def current_admin
-    # Placeholder for current admin - implement based on auth system
-    @current_admin ||= Admin.first # Replace with proper lookup
+  def pagination_meta(collection)
+    {
+      current_page: collection.current_page,
+      total_pages: collection.total_pages,
+      total_count: collection.total_count,
+      per_page: collection.limit_value
+    }
   end
 
   def record_not_found(exception)

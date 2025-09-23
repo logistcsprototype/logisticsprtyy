@@ -12,6 +12,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
+  # Devise routes for admins
+  devise_for :admins, controllers: {
+    sessions: 'admins/sessions'
+  }
+
   resources :drivers
   resources :vehicles
   resources :license_types

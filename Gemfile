@@ -22,6 +22,16 @@ gem "bcrypt", "~> 3.1.7"
 
 gem "rack-cors"
 
+# Authentication
+gem 'devise'
+gem 'devise-jwt'
+
+# Serializers
+gem 'active_model_serializers'
+
+# Pagination
+gem 'kaminari'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 

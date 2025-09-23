@@ -10,14 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_19_074936) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_23_000003) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.string "password_digest"
     t.string "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
   create_table "driver_assignments", force: :cascade do |t|
@@ -91,6 +96,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_19_074936) do
     t.index ["vehicle_id"], name: "index_insurance_documents_on_vehicle_id"
   end
 
+  create_table "jwt_denylist", force: :cascade do |t|
+    t.string "jti", null: false
+    t.datetime "exp", null: false
+    t.index ["jti"], name: "index_jwt_denylist_on_jti"
+  end
+
   create_table "license_types", force: :cascade do |t|
     t.string "code"
     t.string "description"
@@ -109,6 +120,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_19_074936) do
     t.datetime "updated_at", null: false
     t.index ["admin_id"], name: "index_maintenances_on_admin_id"
     t.index ["vehicle_id"], name: "index_maintenances_on_vehicle_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "admin_id", null: false
+    t.text "message"
+    t.boolean "read", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_notifications_on_admin_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -130,6 +150,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_19_074936) do
     t.integer "admin_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "next_maintenance_date"
     t.index ["admin_id"], name: "index_vehicles_on_admin_id"
     t.index ["license_type_id"], name: "index_vehicles_on_license_type_id"
   end
@@ -149,6 +170,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_19_074936) do
   add_foreign_key "insurance_documents", "vehicles"
   add_foreign_key "maintenances", "admins"
   add_foreign_key "maintenances", "vehicles"
+  add_foreign_key "notifications", "admins"
   add_foreign_key "vehicles", "admins"
   add_foreign_key "vehicles", "license_types"
 end

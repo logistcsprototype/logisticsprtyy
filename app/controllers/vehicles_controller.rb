@@ -11,20 +11,25 @@ class VehiclesController < ApplicationController
     vehicles = vehicles.where(vehicle_type: params[:vehicle_type]) if params[:vehicle_type].present?
     vehicles = vehicles.where(owner_type: params[:owner_type]) if params[:owner_type].present?
 
-    vehicles = vehicles.limit(params[:limit] || 20).offset(params[:offset] || 0)
-    render json: vehicles, status: :ok
+    # Sorting
+    sort_by = params[:sort_by] || 'created_at'
+    sort_direction = params[:sort_direction] || 'desc'
+    vehicles = vehicles.order("#{sort_by} #{sort_direction}")
+
+    vehicles = vehicles.page(params[:page] || 1).per(params[:per_page] || 20)
+    render json: vehicles, each_serializer: VehicleSerializer, meta: pagination_meta(vehicles), status: :ok
   end
 
   # GET /vehicles/:id
   def show
-    render json: @vehicle, status: :ok
+    render json: @vehicle, serializer: VehicleSerializer, status: :ok
   end
 
   # POST /vehicles
   def create
     vehicle = Vehicle.new(vehicle_params)
     if vehicle.save
-      render json: vehicle, status: :created
+      render json: vehicle, serializer: VehicleSerializer, status: :created
     else
       render json: { errors: vehicle.errors.full_messages }, status: :unprocessable_entity
     end
@@ -33,7 +38,7 @@ class VehiclesController < ApplicationController
   # PATCH/PUT /vehicles/:id
   def update
     if @vehicle.update(vehicle_params)
-      render json: @vehicle, status: :ok
+      render json: @vehicle, serializer: VehicleSerializer, status: :ok
     else
       render json: { errors: @vehicle.errors.full_messages }, status: :unprocessable_entity
     end
