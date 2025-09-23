@@ -12,6 +12,6 @@ class Admins::SessionsController < Devise::SessionsController
   end
 
   def current_token
-    request.env['warden-jwt_auth.token']
+    request.env["warden-jwt_auth.token"]
   end
 end

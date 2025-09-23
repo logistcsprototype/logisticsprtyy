@@ -7,6 +7,5 @@ FactoryBot.define do
     description      { Faker::Vehicle.standard_specs.join(', ') }
     cost             { Faker::Commerce.price(range: 50.0..500.0) }
     next_due_date    { maintenance_date + rand(30..180).days }
-    
   end
 end

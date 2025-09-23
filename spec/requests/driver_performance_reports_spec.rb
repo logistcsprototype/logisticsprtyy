@@ -6,7 +6,7 @@ RSpec.describe "DriverPerformanceReports API", type: :request do
   let!(:license) { create(:license_type) }
   let!(:driver)  { create(:driver, admin: admin, license_type: license) }
   let!(:vehicle) { create(:vehicle, admin: admin, license_type: license) }
-  let!(:reporter){ create(:admin) } # assuming reported_by is also an Admin
+  let!(:reporter) { create(:admin) } # assuming reported_by is also an Admin
   let!(:reports) { create_list(:driver_performance_report, 3,
                                admin: admin,
                                driver: driver,

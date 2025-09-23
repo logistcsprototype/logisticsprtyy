@@ -2,4 +2,4 @@
   def change
     add_column :driver_assignments, :vehicle_condition, :string
   end
-end
+ end

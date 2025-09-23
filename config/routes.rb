@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   # Devise routes for admins
   devise_for :admins, controllers: {
-    sessions: 'admins/sessions'
+    sessions: "admins/sessions"
   }
 
   resources :drivers

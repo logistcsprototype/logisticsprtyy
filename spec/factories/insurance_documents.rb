@@ -7,6 +7,5 @@ FactoryBot.define do
     expiry_date   { Faker::Date.forward(days: 365) }
     document_url  { Faker::Internet.url(host: 'example.com', path: '/insurance.pdf') }
     notes         { Faker::Lorem.sentence(word_count: 10) }
-    
   end
 end

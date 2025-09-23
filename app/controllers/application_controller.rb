@@ -24,14 +24,14 @@ class ApplicationController < ActionController::API
   end
 
   def record_not_found(exception)
-    render json: { error: 'Record not found', message: exception.message }, status: :not_found
+    render json: { error: "Record not found", message: exception.message }, status: :not_found
   end
 
   def record_invalid(exception)
-    render json: { error: 'Validation failed', message: exception.record.errors.full_messages }, status: :unprocessable_entity
+    render json: { error: "Validation failed", message: exception.record.errors.full_messages }, status: :unprocessable_entity
   end
 
   def internal_server_error(exception)
-    render json: { error: 'Internal server error', message: exception.message }, status: :internal_server_error
+    render json: { error: "Internal server error", message: exception.message }, status: :internal_server_error
   end
 end

@@ -12,8 +12,8 @@ class VehiclesController < ApplicationController
     vehicles = vehicles.where(owner_type: params[:owner_type]) if params[:owner_type].present?
 
     # Sorting
-    sort_by = params[:sort_by] || 'created_at'
-    sort_direction = params[:sort_direction] || 'desc'
+    sort_by = params[:sort_by] || "created_at"
+    sort_direction = params[:sort_direction] || "desc"
     vehicles = vehicles.order("#{sort_by} #{sort_direction}")
 
     vehicles = vehicles.page(params[:page] || 1).per(params[:per_page] || 20)

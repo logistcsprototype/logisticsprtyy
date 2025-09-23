@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
     # Optional filtering
     users = users.where(role: params[:role]) if params[:role].present?
-    users = users.where('LOWER(name) LIKE LOWER(?)', "%#{params[:search]}%") if params[:search].present?
+    users = users.where("LOWER(name) LIKE LOWER(?)", "%#{params[:search]}%") if params[:search].present?
 
     users = users.limit(params[:limit] || 20).offset(params[:offset] || 0)
     render json: users, status: :ok
@@ -50,6 +50,8 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :role, :password, :password_confirmation)
+    allowed = [ :name, :email, :password, :password_confirmation ]
+    allowed << :role if current_user&.admin?
+    params.require(:user).permit(allowed)
   end
 end

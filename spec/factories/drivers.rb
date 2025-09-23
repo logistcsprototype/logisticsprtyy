@@ -9,6 +9,5 @@ FactoryBot.define do
 
     association :license_type
     association :admin
-    
   end
 end

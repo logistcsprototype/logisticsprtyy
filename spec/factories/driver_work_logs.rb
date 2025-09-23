@@ -8,6 +8,5 @@ FactoryBot.define do
     start_time { Faker::Time.backward(days: 1, period: :morning) }
     end_time   { start_time + rand(1..8).hours }
     total_hours { ((end_time - start_time) / 1.hour).round(2) }
-    
   end
 end

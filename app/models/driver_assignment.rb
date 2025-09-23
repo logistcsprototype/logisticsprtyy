@@ -8,5 +8,5 @@ class DriverAssignment < ApplicationRecord
   validates :date_assigned, presence: true
   validates :vehicle_condition, presence: true
   validates :assignment_status, presence: true
-  validates :end_date, presence: true, if: -> { assignment_status == 'completed' }
+  validates :end_date, presence: true, if: -> { assignment_status == "completed" }
 end

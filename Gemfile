@@ -23,14 +23,14 @@ gem "bcrypt", "~> 3.1.7"
 gem "rack-cors"
 
 # Authentication
-gem 'devise'
-gem 'devise-jwt'
+gem "devise"
+gem "devise-jwt"
 
 # Serializers
-gem 'active_model_serializers'
+gem "active_model_serializers"
 
 # Pagination
-gem 'kaminari'
+gem "kaminari"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -54,9 +54,9 @@ gem "thruster", require: false
 
 group :development, :test do
   # Use RSpec for testing [https://rspec.info/]
-  gem 'rspec-rails', '~> 6.0'
-  gem 'factory_bot_rails'
-  gem 'faker'
+  gem "rspec-rails", "~> 6.0"
+  gem "factory_bot_rails"
+  gem "faker"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
@@ -76,5 +76,5 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
-  gem 'shoulda-matchers', '~> 6.0'
+  gem "shoulda-matchers", "~> 6.0"
 end

@@ -13,7 +13,7 @@ class DriversController < ApplicationController
     drivers = drivers.where(gender: params[:gender]) if params[:gender].present?
 
     # Search
-    drivers = drivers.where('LOWER(name) LIKE LOWER(?)', "%#{params[:search]}%") if params[:search].present?
+    drivers = drivers.where("LOWER(name) LIKE LOWER(?)", "%#{params[:search]}%") if params[:search].present?
 
     # Pagination
     drivers = drivers.limit(params[:limit] || 20).offset(params[:offset] || 0)
@@ -61,9 +61,9 @@ class DriversController < ApplicationController
     vehicle = Vehicle.find(params[:vehicle_id])
 
     if @driver.vehicles << vehicle
-      render json: { message: 'Vehicle assigned successfully', driver: @driver }, status: :ok
+      render json: { message: "Vehicle assigned successfully", driver: @driver }, status: :ok
     else
-      render json: { errors: ['Failed to assign vehicle'] }, status: :unprocessable_entity
+      render json: { errors: [ "Failed to assign vehicle" ] }, status: :unprocessable_entity
     end
   end
 
@@ -72,9 +72,9 @@ class DriversController < ApplicationController
     vehicle = Vehicle.find(params[:vehicle_id])
 
     if @driver.vehicles.delete(vehicle)
-      render json: { message: 'Vehicle removed successfully', driver: @driver }, status: :ok
+      render json: { message: "Vehicle removed successfully", driver: @driver }, status: :ok
     else
-      render json: { errors: ['Failed to remove vehicle'] }, status: :unprocessable_entity
+      render json: { errors: [ "Failed to remove vehicle" ] }, status: :unprocessable_entity
     end
   end
 

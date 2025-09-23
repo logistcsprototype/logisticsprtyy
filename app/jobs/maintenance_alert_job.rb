@@ -3,7 +3,7 @@ class MaintenanceAlertJob < ApplicationJob
 
   def perform
     # Find vehicles due for maintenance (e.g., based on mileage or date)
-    vehicles_due = Vehicle.where('next_maintenance_date <= ?', Date.today + 7.days)
+    vehicles_due = Vehicle.where("next_maintenance_date <= ?", Date.today + 7.days)
 
     vehicles_due.each do |vehicle|
       # Send alert to admin or log it

@@ -6,7 +6,7 @@ class Admin < ApplicationRecord
   has_many :vehicles
   has_many :drivers
   has_many :driver_assignments
-  has_many :maintenance_records, class_name: 'Maintenance'
+  has_many :maintenance_records, class_name: "Maintenance"
   has_many :driver_performance_reports
   has_many :insurance_documents
   has_many :notifications

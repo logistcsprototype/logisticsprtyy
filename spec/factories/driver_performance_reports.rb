@@ -7,6 +7,5 @@ FactoryBot.define do
     report_date { Faker::Date.backward(days: 30) }
     rating      { rand(1..5) }
     comments    { Faker::Lorem.sentence(word_count: 12) }
-    
   end
 end
